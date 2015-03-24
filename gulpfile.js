@@ -45,10 +45,13 @@ gulp.task('scripts', ['clean'], function() {
     .pipe(plumber())
     .pipe(header(banner, { package : package }))
     .pipe(gulp.dest('dist/'))
+    .pipe(gulp.dest('demo/js/'))
     .pipe(rename({ suffix: '.min' }))
     .pipe(uglify())
     .pipe(header(banner, { package : package }))
-    .pipe(gulp.dest('dist/'));
+    .pipe(gulp.dest('dist/'))
+    .pipe(gulp.dest('demo/js/'));
+
 });
 
 gulp.task('watch', function() {
