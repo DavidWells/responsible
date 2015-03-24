@@ -8,19 +8,30 @@
     }
 })(this, function() {
 
-    _getViewPort = function() {
-        var viewport = document.querySelector("meta[name=viewport]");
-        if (viewport) {
-            return viewport;
-        } else {
-            // insert viewport
-            viewport = document.createElement('meta');
-            viewport.name = "viewport";
-            viewport.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0";
-            document.getElementsByTagName('head')[0].appendChild(viewport);
-            return viewport;
-        }
-    };
+
+    /* Cross-browser event listening  */
+    addListener = function(element, eventName, listener) {
+         if (!element) { return; }
+
+         if (element.addEventListener) {
+             element.addEventListener(eventName, listener, false);
+         } else if (element.attachEvent) {
+             element.attachEvent("on" + eventName, listener);
+         } else {
+             element['on' + eventName] = listener;
+         }
+     };
+    removeListener = function(element, eventName, listener) {
+         if (!element) { return; }
+
+         if (element.removeEventListener) {
+             element.removeEventListener(eventName, listener, false);
+         } else if (element.detachEvent) {
+             element.detachEvent("on" + eventName, listener);
+         } else {
+             element["on" + eventName] = null;
+         }
+     };
     _logStr = function(string) {
        if (window.console) { // IE...
          window.console.log("Responsible: " + string);
@@ -88,7 +99,6 @@
         return a;
     };
 
-
     // Create cookie
     _createCookie = function(name, value, days, custom_time) {
         var expires = "";
@@ -117,7 +127,27 @@
         }
         return null;
     };
+    /* _getWidth = function() {
+       // get viewport width of browser
+       var elem = (document.compatMode === "CSS1Compat") ?
+       document.documentElement :
+       document.body;
 
+       return elem.clientWidth;
+     };*/
+    _getViewPort = function() {
+         var viewport = document.querySelector("meta[name=viewport]");
+         if (viewport) {
+             return viewport;
+         } else {
+             // insert viewport
+             viewport = document.createElement('meta');
+             viewport.name = "viewport";
+             viewport.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0";
+             document.getElementsByTagName('head')[0].appendChild(viewport);
+             return viewport;
+         }
+    };
     /* File Operations */
     _loadCSS = function(path) {
         var isLoaded = document.getElementById('responsible-css');
@@ -156,14 +186,37 @@
     viewport = _getViewPort(),
     cache;
 
-    _getWidth = function() {
-      // get viewport width of browser
-      var elem = (document.compatMode === "CSS1Compat") ?
-      document.documentElement :
-      document.body;
 
-      return elem.clientWidth;
-    };
+    _desktopAddToggle = function(){
+        var toggle = document.getElementById('responsible-toggle');
+        if(toggle) { return false; }
+
+         var firstElement = document.body.children[0],
+         div = document.createElement("div");
+         div.id = "responsible-toggle";
+         div.style.padding = "30px 0 45px";
+         div.style.width = "100%";
+         div.style.color = "#eaeaea";
+         div.style.fontSize = "60px";
+         div.style.fontWeight = "bold";
+         div.style.backgroundColor = "#444";
+         div.style.textAlign = "center";
+         div.style.cursor = "pointer";
+         div.innerText = "Toggle Mobile Site";
+         // insert at top of page
+         document.body.insertBefore(div, firstElement);
+         addListener(div, 'click', responsible.mobile);
+     };
+
+     _desktopRemoveToggle = function(){
+            var toggle = document.getElementById('responsible-toggle');
+
+            if(toggle) {
+                 console.log('Destroy toggle');
+                 removeListener(toggle, 'click', responsible.mobile);
+                 document.body.removeChild(toggle);
+            }
+      };
 
 
     responsible.desktop = function() {
@@ -174,7 +227,7 @@
         _removeCSS( Options.path );
         viewport.setAttribute("content",
             'width=' + Options.targetWidth + ", user-scalable=yes, initial-scale=.25, maximum-scale=.35");
-
+        _desktopAddToggle();
 
         setTimeout(function() {
           // make it zoomable

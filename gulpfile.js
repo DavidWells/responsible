@@ -71,5 +71,5 @@ gulp.task('default', [
   'lint',
   'clean',
   'scripts',
-  'test'
+  //'test'
 ]);
