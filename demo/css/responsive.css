@@ -1,9 +1,7 @@
 /*
  Responsive CSS goes here
 */
-h1 {
-  color:yellow;
-}
+
 /*
 h3:after {
   content:"Responsive CSS is currently loaded";
@@ -16,6 +14,14 @@ h3:after {
     }
     #content {
             width: 100%;
+    }
+
+    h1 {
+      color:yellow;
+    }
+    blockquote {
+      margin-right: 0px;
+      margin-left: 0px;
     }
 }
 
@@ -32,6 +38,18 @@ h3:after {
         margin: 0 0 0px;
 
     }
+    .bottom-button {
+      display: block;
+      margin-bottom: 11px;
+    }
+    .download {
+      margin: 30px 0;
+    }
+    h2.header-h2 { text-align: center;}
+    .tagline-container {
+    margin-bottom: 30px;
+    }
+
 }
 
 @media only screen and (max-width: 479px) {
@@ -52,6 +70,10 @@ h3:after {
     }
     h2 {
         font-size: 18px;
+        text-align: left;
+    }
+    p{
+      text-align: left;
     }
     p,
     ul {

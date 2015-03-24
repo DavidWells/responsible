@@ -112,8 +112,15 @@ a:hover {
 h1 {
     font-size: 2em;
     margin: 0.67em 0;
+    border-bottom:1px solid;
+    display: inline-block;
 }
-
+blockquote {
+	background: rgb(150, 150, 150);
+	padding: 20px;
+	border-radius: 10px;
+	margin-top: -20px;
+}
 /**
  * Address styling not present in IE 8/9, Safari 5, and Chrome.
  */
@@ -535,7 +542,12 @@ a:hover {
 
 .download {
   margin: 60px 0; }
-
+.tagline-container {
+margin-bottom: 60px;
+}
+.tagline {
+	font-size: 34px;
+}
 .buttons {
   text-align: center; }
 
@@ -589,7 +601,9 @@ a:hover {
 
 .q span.on {
   opacity: 0.8; }
-
+.inner {
+	text-align: center;
+}
 .q i {
   font-style: normal;
   position: absolute;
