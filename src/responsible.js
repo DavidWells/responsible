@@ -15,38 +15,42 @@
 
     // Cross-browser event listening
     addListener = function(element, eventName, listener) {
-         if (!element) { return; }
+        if (!element) {
+            return;
+        }
 
-         if (element.addEventListener) {
-             element.addEventListener(eventName, listener, false);
-         } else if (element.attachEvent) {
-             element.attachEvent("on" + eventName, listener);
-         } else {
-             element['on' + eventName] = listener;
-         }
-     };
+        if (element.addEventListener) {
+            element.addEventListener(eventName, listener, false);
+        } else if (element.attachEvent) {
+            element.attachEvent("on" + eventName, listener);
+        } else {
+            element['on' + eventName] = listener;
+        }
+    };
     removeListener = function(element, eventName, listener) {
-         if (!element) { return; }
+        if (!element) {
+            return;
+        }
 
-         if (element.removeEventListener) {
-             element.removeEventListener(eventName, listener, false);
-         } else if (element.detachEvent) {
-             element.detachEvent("on" + eventName, listener);
-         } else {
-             element["on" + eventName] = null;
-         }
-     };
+        if (element.removeEventListener) {
+            element.removeEventListener(eventName, listener, false);
+        } else if (element.detachEvent) {
+            element.detachEvent("on" + eventName, listener);
+        } else {
+            element["on" + eventName] = null;
+        }
+    };
     _logStr = function(string) {
-       if (window.console) { // IE...
-         window.console.log("Responsible: " + string);
-       }
+        if (window.console) { // IE...
+            window.console.log("Responsible: " + string);
+        }
     };
     _argsOrDefault = function(args, key) {
-          if (typeof args[key] !== 'undefined') {
+        if (typeof args[key] !== 'undefined') {
             return args[key];
-          } else {
+        } else {
             return Defaults[key];
-          }
+        }
     };
     /*!
     mergeOptions = function(arguments) {
@@ -89,20 +93,7 @@
           }
     };*/
 
-    /*!
-    // Merge script defaults with user options
-    extend = function(a, b){
-      //console.log('Extend');
-        for (var key in b) {
-          //console.log(key)
-          if (b.hasOwnProperty(key)) {
-            a[key] = b[key];
-          }
-        }
-
-        return a;
-    };*/
-    extend =  function(defaults, options) {
+    extend = function(defaults, options) {
         var extended = {};
         var prop;
         for (prop in defaults) {
@@ -147,30 +138,32 @@
         return null;
     };
     _getWidth = function() {
-       // get viewport width of browser
-       var elem = (document.compatMode === "CSS1Compat") ?
-       document.documentElement :
-       document.body;
+        // get viewport width of browser
+        var elem = (document.compatMode === "CSS1Compat") ?
+            document.documentElement :
+            document.body;
 
-       return elem.clientWidth;
-     };
+        return elem.clientWidth;
+    };
     _getViewPort = function() {
-         var viewport = document.querySelector("meta[name=viewport]");
-         if (viewport) {
-             return viewport;
-         } else {
-             // insert viewport
-             viewport = document.createElement('meta');
-             viewport.name = "viewport";
-             viewport.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0";
-             document.getElementsByTagName('head')[0].appendChild(viewport);
-             return viewport;
-         }
+        var viewport = document.querySelector("meta[name=viewport]");
+        if (viewport) {
+            return viewport;
+        } else {
+            // insert viewport
+            viewport = document.createElement('meta');
+            viewport.name = "viewport";
+            viewport.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0";
+            document.getElementsByTagName('head')[0].appendChild(viewport);
+            return viewport;
+        }
     };
     // File Operations
     _loadCSS = function(path) {
         var isLoaded = document.getElementById('responsible-css');
-        if(isLoaded) { return false; }
+        if (isLoaded) {
+            return false;
+        }
 
         var cssRef = document.createElement("link");
         cssRef.id = "responsible-css";
@@ -187,7 +180,7 @@
         var cssFiles = document.getElementsByTagName('link');
         // search backwards within nodelist for matching cssFiles to remove
         for (var i = cssFiles.length; i >= 0; i--) {
-          console.log(cssFiles[i]);
+            console.log(cssFiles[i]);
             if (cssFiles[i] && cssFiles[i].getAttribute("href") !== null && cssFiles[i].getAttribute("href").indexOf(filename) !== -1) {
                 console.log('match on ', filename);
                 // set path cache
@@ -199,122 +192,119 @@
     };
 
     var responsible = {},
-    viewport = _getViewPort(), // returns cached viewport tag
-    Defaults = {
-      cssPath: 'css/responsive.css', // path to responsive css file containing media queries
-      desktopWidth: 1280, // the desired width of the mobile desktop view
-      toggleThreshold: 980, // if the window is smaller than this width, the mobile toggle will display
-      desktopToggleDisplay: true, // set to false to hide mobile toggle
-      desktopToggleText: "Toggle Mobile Site",
-      mobileToggleDisplay: true, // set to false to hide mobile toggle
-      mobileToggleText: "View Full Site",
-      mobileToggleAlign: 'right', // right or left
-      mobileToggleBottom: '0px' // offset from bottom
-    },
-    State, // Current State of view. "mobile" or "desktop"
-    cache;
+        viewport = _getViewPort(), // returns cached viewport tag
+        Defaults = {
+            cssPath: 'css/responsive.css', // path to responsive css file containing media queries
+            desktopWidth: 1280, // the desired width of the mobile desktop view
+            toggleThreshold: 980, // if the window is smaller than this width, the mobile toggle will display
+            desktopToggleDisplay: true, // set to false to hide mobile toggle
+            desktopToggleText: "Toggle Mobile Site",
+            mobileToggleDisplay: true, // set to false to hide mobile toggle
+            mobileToggleText: "View Full Site",
+            mobileToggleAlign: 'right', // right or left
+            mobileToggleBottom: '0px' // offset from bottom
+        },
+        State, // Current State of view. "mobile" or "desktop"
+        cache;
 
 
-    _desktopAddToggle = function(){
+    _desktopAddToggle = function() {
         var toggle = document.getElementById('responsible-toggle');
-        if(toggle || !Options.desktopToggleDisplay) { return false; }
+        if (toggle || !Options.desktopToggleDisplay) {
+            return false;
+        }
 
-         var firstElement = document.body.children[0],
-         div = document.createElement("div");
-         div.id = "responsible-toggle";
-         div.style.padding = "40px 0px 40px";
-         div.style.width = "100%";
-         div.style.color = "#eaeaea";
-         div.style.fontSize = "60px";
-         div.style.fontWeight = "bold";
-         div.style.backgroundColor = "#444";
-         div.style.textAlign = "center";
-         div.style.cursor = "pointer";
-         div.innerText = Options.desktopToggleText;
-         // insert at top of page
-         document.body.insertBefore(div, firstElement);
-         addListener(div, 'click', responsible.mobile);
-     };
+        var firstElement = document.body.children[0],
+            div = document.createElement("div");
+        div.id = "responsible-toggle";
+        div.style.padding = "40px 0px 40px";
+        div.style.width = "100%";
+        div.style.color = "#eaeaea";
+        div.style.fontSize = "60px";
+        div.style.fontWeight = "bold";
+        div.style.backgroundColor = "#444";
+        div.style.textAlign = "center";
+        div.style.cursor = "pointer";
+        div.innerText = Options.desktopToggleText;
+        // insert at top of page
+        document.body.insertBefore(div, firstElement);
+        addListener(div, 'click', responsible.mobile);
+    };
 
-     _desktopRemoveToggle = function(){
-            var toggle = document.getElementById('responsible-toggle');
+    _desktopRemoveToggle = function() {
+        var toggle = document.getElementById('responsible-toggle');
 
-            if(toggle) {
-                 console.log('Destroy desktop toggle');
-                 removeListener(toggle, 'click', responsible.mobile);
-                 document.body.removeChild(toggle);
-            }
-      };
+        if (toggle) {
+            console.log('Destroy desktop toggle');
+            removeListener(toggle, 'click', responsible.mobile);
+            document.body.removeChild(toggle);
+        }
+    };
 
-      _mobileAddToggle = function(){
+    _mobileAddToggle = function() {
         var toggle = document.getElementById('responsible-mobile-toggle');
-        if(toggle || !Options.mobileToggleDisplay) { return false; }
+        if (toggle || !Options.mobileToggleDisplay) {
+            return false;
+        }
 
-         var firstElement = document.body.children[0],
-         div = document.createElement("div");
-         div.id = "responsible-mobile-toggle";
-         div.style.position = "fixed";
-         div.style.padding = "10px";
-         div.style.color = "#eaeaea";
-         div.style.fontSize = "14px";
-         div.style.fontWeight = "bold";
-         div.style.backgroundColor = "#444";
-         div.style.textAlign = "center";
-         div.style[Options.mobileToggleAlign] = "0px";
-         div.style.bottom = Options.mobileToggleBottom;
-         div.style.zIndex = "99999999";
-         div.innerText = Options.mobileToggleText;
-         // insert at top of page
-         document.body.insertBefore(div, firstElement);
-         addListener(div, 'click', responsible.desktop);
-      };
+        var firstElement = document.body.children[0],
+            div = document.createElement("div");
+        div.id = "responsible-mobile-toggle";
+        div.style.position = "fixed";
+        div.style.padding = "10px";
+        div.style.color = "#eaeaea";
+        div.style.fontSize = "14px";
+        div.style.fontWeight = "bold";
+        div.style.backgroundColor = "#444";
+        div.style.textAlign = "center";
+        div.style[Options.mobileToggleAlign] = "0px";
+        div.style.bottom = Options.mobileToggleBottom;
+        div.style.zIndex = "99999999";
+        div.innerText = Options.mobileToggleText;
+        // insert at top of page
+        document.body.insertBefore(div, firstElement);
+        addListener(div, 'click', responsible.desktop);
+    };
 
-      _mobileRemoveToggle = function(){
-           var toggle = document.getElementById('responsible-mobile-toggle');
+    _mobileRemoveToggle = function() {
+        var toggle = document.getElementById('responsible-mobile-toggle');
 
-           if(toggle) {
-                console.log('Destroy mobile toggle');
-                removeListener(toggle, 'click', responsible.desktop);
-                document.body.removeChild(toggle);
-           }
-       };
+        if (toggle) {
+            console.log('Destroy mobile toggle');
+            removeListener(toggle, 'click', responsible.desktop);
+            document.body.removeChild(toggle);
+        }
+    };
 
-    responsible.init =  function(Settings){
+    responsible.init = function(Settings) {
         // Handle settings here
         var Settings = Settings || {};
         // Set global Options
         Options = extend(Defaults, Settings);
 
         //console.log('merged options', Options);
-        if(_getWidth() < Options.toggleThreshold){
-          // Mobile view
-          State = "mobile";
-          _mobileAddToggle();
-          OnDesktop = false;
+        if (_getWidth() < Options.toggleThreshold) {
+            // Mobile view
+            State = "mobile";
+            _mobileAddToggle();
+            OnDesktop = false;
         } else {
-          // Desktop view, do nothing
-          State = "desktop";
-          OnDesktop = true;
+            // Desktop view, do nothing
+            State = "desktop";
+            OnDesktop = true;
 
         }
     };
-    /**
-     * Triggers desktop mode
-     *
-     * Usage:
-     *
-     * ```js
-     * responsible.desktop(); // toggles desktop view
-     * // pass in arguments
-     * responsible.desktop({'desktopWidth': 1170 });
-     * ```
-     */
+
     responsible.desktop = function() {
-        if (State === "desktop") { _logStr('Desktop mode already active'); return false; }
+        if (State === "desktop") {
+            _logStr('Desktop mode already active');
+            return false;
+        }
 
         State = "desktop"; // set state
 
-        _removeCSS( Options.cssPath );
+        _removeCSS(Options.cssPath);
         viewport.setAttribute("content",
             'width=' + Options.desktopWidth + ", user-scalable=yes, initial-scale=.25, maximum-scale=.35");
 
@@ -322,55 +312,46 @@
         _desktopAddToggle();
 
         setTimeout(function() {
-          // make it zoomable
-          viewport.setAttribute("content",
-              'width=' + Options.desktopWidth + ", user-scalable=yes, initial-scale=.25, maximum-scale=1");
+            // make it zoomable
+            viewport.setAttribute("content",
+                'width=' + Options.desktopWidth + ", user-scalable=yes, initial-scale=.25, maximum-scale=1");
 
         }, 300);
         //viewportWidth = _getWidth(); // Desktop fix
         //var width = (viewportWidth > Options.desktopWidth) ? viewportWidth : Options.desktopWidth;
         //document.body.style.width = width + "px";
     };
-    /**
-     * Triggers mobile mode
-     *
-     * Usage:
-     *
-     * ```js
-     * responsible.mobile(); // toggles desktop view
-     * // pass in arguments
-     * responsible.mobile({'desktopWidth': 1170 });
-     * ```
-     */
+
     responsible.mobile = function() {
-      if (State === "mobile" ) {
-        _logStr('Mobile state already active');
-        return false;
-      }
-      if(OnDesktop) {
-        _logStr('You are on a desktop. Resize your browser');
-      }
+        if (State === "mobile") {
+            _logStr('Mobile state already active');
+            return false;
+        }
+        if (OnDesktop) {
+            _logStr('You are on a desktop. Resize your browser');
+            return false;
+        }
 
-      State = "mobile"; // set state
+        State = "mobile"; // set state
 
-      console.log('cached cssPathhere ', cache);
-      console.log('customizations', Options);
+        console.log('cached cssPathhere ', cache);
+        console.log('customizations', Options);
         // Load responsive CSS
 
         console.log("add responsive CSS", Options.cssPath);
         var cssPath = (cache) ? cache : Options.cssPath;
         console.log('DO this', cssPath);
 
-        _loadCSS( cssPath );
+        _loadCSS(cssPath);
 
         _desktopRemoveToggle();
         _mobileAddToggle();
         // Set viewport back to mobile
         viewport.setAttribute('content', 'width=device-width, user-scalable=yes, initial-scale=1');
 
-        if(Options.doneFunction){
-          console.log('has done');
-          Options.doneFunction();
+        if (Options.doneFunction) {
+            console.log('has done');
+            Options.doneFunction();
         }
     };
 
