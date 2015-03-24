@@ -6,7 +6,7 @@ Give mobile visitors the option of viewing the desktop version of the site with 
 
 Help improve the user experience on the web
 
-## Prequisties
+## Prerequisites
 
 In order to use the library you need to separate out your responsive CSS into a separate file.
 
