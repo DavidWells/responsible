@@ -556,7 +556,8 @@ a:hover {
   /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */ }
 
 .button:hover {
-  background: #962121; }
+  background: #962121;
+  color:#fff; }
 
 .button-download {
   margin: 0 20px 0 0;
@@ -610,3 +611,7 @@ a:hover {
   /* Opera 12.00 */
   animation: myanim 0.8s infinite;
   /* Chrome, Firefox 16+, IE 10+, Opera 12.10+ */ }
+  /*
+  h3:after {
+    content:"Desktop Mode on. Responsive CSS is disabled";
+  }*/

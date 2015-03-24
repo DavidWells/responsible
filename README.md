@@ -16,6 +16,12 @@ See [/demo/css](/demo/css) for an example of `old-combined-styles.css` split up 
 
 By default the script looks for a file named responsive.css but you set the correct path with the cssPath param.
 
+## The Flow
+
+By default all of your site's CSS loads normally (including your responsive.css).
+
+If the viewport width is below the threshold (default 980), the 'view full site' toggle will appear and allow visitors to choose their mobile experience.
+
 ## Manual installation
 
 Drop your files into your required folders, make sure you're using the files from the dist folder, which is the compiled production-ready code. Ensure you place the script before the closing ``</body>`` tag so the DOM tree is populated when the script runs.

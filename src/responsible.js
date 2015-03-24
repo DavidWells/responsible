@@ -201,7 +201,7 @@
     var responsible = {},
     viewport = _getViewPort(), // returns cached viewport tag
     Defaults = {
-      cssPath: 'responsive.css', // path to responsive css file containing media queries
+      cssPath: 'css/responsive.css', // path to responsive css file containing media queries
       desktopWidth: 1280, // the desired width of the mobile desktop view
       toggleThreshold: 980, // if the window is smaller than this width, the mobile toggle will display
       desktopToggleDisplay: true, // set to false to hide mobile toggle
@@ -285,15 +285,16 @@
         // Set global Options
         Options = extend(Defaults, Settings);
 
-        console.log('merged options', Options);
+        //console.log('merged options', Options);
         if(_getWidth() < Options.toggleThreshold){
           // Mobile view
           State = "mobile";
           _mobileAddToggle();
-
+          OnDesktop = false;
         } else {
           // Desktop view, do nothing
           State = "desktop";
+          OnDesktop = true;
 
         }
     };
@@ -309,7 +310,7 @@
      * ```
      */
     responsible.desktop = function() {
-        if (State === "desktop") { return false; }
+        if (State === "desktop") { _logStr('Desktop mode already active'); return false; }
 
         State = "desktop"; // set state
 
@@ -342,7 +343,13 @@
      * ```
      */
     responsible.mobile = function() {
-      if (State === "mobile") { return false; }
+      if (State === "mobile" ) {
+        _logStr('Mobile state already active');
+        return false;
+      }
+      if(OnDesktop) {
+        _logStr('You are on a desktop. Resize your browser');
+      }
 
       State = "mobile"; // set state
 

@@ -4,6 +4,11 @@
 h1 {
   color:yellow;
 }
+/*
+h3:after {
+  content:"Responsive CSS is currently loaded";
+}
+*/
 
 @media only screen and (max-width: 799px) {
     .q {
