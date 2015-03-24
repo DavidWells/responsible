@@ -18,7 +18,7 @@ By default the script looks for a file named responsive.css but you set the corr
 
 ## Manual installation
 
-Drop your files into your required folders, make sure you're using the files from the dist folder, which is the compiled production-ready code. Ensure you place the script before the closing </body> tag so the DOM tree is populated when the script runs.
+Drop your files into your required folders, make sure you're using the files from the dist folder, which is the compiled production-ready code. Ensure you place the script before the closing ``</body>`` tag so the DOM tree is populated when the script runs.
 
 ```html
 <body>
