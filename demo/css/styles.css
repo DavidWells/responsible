@@ -118,6 +118,8 @@ h1 {
 blockquote {
 	background: rgb(150, 150, 150);
 	padding: 20px;
+	padding-top: 30px;
+	padding-bottom: 30px;
 	border-radius: 10px;
 	margin-top: -20px;
 }

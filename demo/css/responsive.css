@@ -17,11 +17,13 @@ h3:after {
     }
 
     h1 {
-      color:yellow;
+      color:#FAADAD;
     }
     blockquote {
       margin-right: 0px;
       margin-left: 0px;
+      padding-top: 20px;
+      padding-bottom: 20px;
     }
 }
 
