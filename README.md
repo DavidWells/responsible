@@ -1,8 +1,8 @@
-# Responsible JS - Responsive Websites done right
+# Responsive Websites done right
 
 Give mobile visitors the option of viewing the desktop version of the site with no page reloads or bullshit.
 
-### ** Help improve the user experience on the web **
+### Improve user experience on the mobile web
 
 ### [Live Demo](http://davidwells.tv/code/responsible/)
 
