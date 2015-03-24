@@ -30,6 +30,7 @@ var banner = [
   '\n'
 ].join('');
 
+/*
 gulp.task("readme", function() {
     gulp.src("src/*.js")
         .pipe(markdox())
@@ -39,6 +40,7 @@ gulp.task("readme", function() {
         }))
         .pipe(gulp.dest("./"));
 });
+*/
 
 gulp.task('scripts', ['clean'], function() {
   return gulp.src(paths.scripts)
@@ -85,6 +87,6 @@ gulp.task('default', [
   'lint',
   'clean',
   'scripts',
-  'readme'
+  //'readme'
   //'test'
 ]);

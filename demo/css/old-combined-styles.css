@@ -1,7 +1,7 @@
 /**
- * Desktop CSS styles with media queries targeting mobile devices moved to responsive.css
+ * This is the old CSS file with media queries included at the bottom.
+ * The media queries are moved to responsive.css
  */
-
 article,
 aside,
 details,
@@ -604,3 +604,59 @@ a:hover {
   /* Opera 12.00 */
   animation: myanim 0.8s infinite;
   /* Chrome, Firefox 16+, IE 10+, Opera 12.10+ */ }
+
+  /*
+   Responsive CSS goes here
+  */
+  h1 {
+    color:yellow;
+  }
+
+  @media only screen and (max-width: 799px) {
+      .q {
+          display: none;
+      }
+      #content {
+              width: 100%;
+      }
+  }
+
+  @media only screen and (max-width: 549px) {
+      .wrap {
+          padding-left: 20px;
+          padding-right: 20px;
+      }
+  }
+
+  @media only screen and (max-width: 459px) {
+      .button {
+          display: inline-block;
+          margin: 0 0 0px;
+
+      }
+  }
+
+  @media only screen and (max-width: 479px) {
+      body {
+          font-size: 18px;
+      }
+      .wrap {
+          padding-left: 10px;
+          padding-right: 10px;
+          font-size: 18px;
+      }
+      #content {
+          padding: 20px 0;
+          width: 100%;
+      }
+      h1 {
+          font-size: 56px;
+      }
+      h2 {
+          font-size: 22px;
+      }
+      p,
+      ul {
+          font-size: 18px;
+      }
+  }

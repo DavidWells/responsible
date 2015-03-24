@@ -1,20 +1,7 @@
 /*! responsible.js v1.2.0 | (c) 2015 @davidwells | https://github.com/davidwells/responsible */
 /**
-# Responsive CSS done Right
-
-Give mobile visitors the option of viewing the desktop version of the site with no page reloads or bullshit.
-
-** Help improve the user experience on the web **
-
-## Prerequisites
-
-In order to use the library you need to separate out your responsive CSS into a separate file.
-
-So any media Queries targeting mobile devices (or tablets) should be moved to a new css file.
-
-By default the script looks for a file named responsive.css but you can override this with options
-
-*/
+ * Responsible JS SRC
+ */
 
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) {
@@ -62,7 +49,7 @@ By default the script looks for a file named responsive.css but you can override
             return Defaults[key];
           }
     };
-    /*
+    /*!
     mergeOptions = function(arguments) {
         ops = {};
         switch (typeof arguments[0]) {
@@ -89,7 +76,7 @@ By default the script looks for a file named responsive.css but you can override
               }
 
               ops.path = _argsOrDefault(arguments[0], 'path');
-              ops.targetWidth = _argsOrDefault(arguments[0], 'targetWidth');
+              ops.desktopWidth = _argsOrDefault(arguments[0], 'desktopWidth');
 
               // Function to call when clicking on cancel/OK
               ops.doneFunction = arguments[1] || null;
@@ -103,7 +90,7 @@ By default the script looks for a file named responsive.css but you can override
           }
     };*/
 
-    /*
+    /*!
     // Merge script defaults with user options
     extend = function(a, b){
       //console.log('Extend');
@@ -196,7 +183,7 @@ By default the script looks for a file named responsive.css but you can override
     };
     // might be able to just disable stylesheet
     _removeCSS = function(filename) {
-        filename = filename || Defaults.path;
+        filename = filename || Defaults.cssPath;
         console.log('filename', filename);
         var cssFiles = document.getElementsByTagName('link');
         // search backwards within nodelist for matching cssFiles to remove
@@ -213,25 +200,30 @@ By default the script looks for a file named responsive.css but you can override
     };
 
     var responsible = {},
-    viewport = _getViewPort(),
+    viewport = _getViewPort(), // returns cached viewport tag
     Defaults = {
-      targetWidth: 1280,
-      deviceWidth : 'device-width',
-      path: 'responsive.css'
+      cssPath: 'responsive.css', // path to responsive css file containing media queries
+      desktopWidth: 1280, // the desired width of the mobile desktop view
+      toggleThreshold: 980, // if the window is smaller than this width, the mobile toggle will display
+      desktopToggleDisplay: true, // set to false to hide mobile toggle
+      desktopToggleText: "Toggle Mobile Site",
+      mobileToggleDisplay: true, // set to false to hide mobile toggle
+      mobileToggleText: "View Full Site",
+      mobileToggleAlign: 'right', // right or left
+      mobileToggleBottom: '0px' // offset from bottom
     },
-    Settings,
-    State,
+    State, // Current State of view. "mobile" or "desktop"
     cache;
 
 
     _desktopAddToggle = function(){
         var toggle = document.getElementById('responsible-toggle');
-        if(toggle) { return false; }
+        if(toggle || !Options.desktopToggleDisplay) { return false; }
 
          var firstElement = document.body.children[0],
          div = document.createElement("div");
          div.id = "responsible-toggle";
-         div.style.padding = "30px 0 45px";
+         div.style.padding = "40px 0px 40px";
          div.style.width = "100%";
          div.style.color = "#eaeaea";
          div.style.fontSize = "60px";
@@ -239,7 +231,7 @@ By default the script looks for a file named responsive.css but you can override
          div.style.backgroundColor = "#444";
          div.style.textAlign = "center";
          div.style.cursor = "pointer";
-         div.innerText = "Toggle Mobile Site";
+         div.innerText = Options.desktopToggleText;
          // insert at top of page
          document.body.insertBefore(div, firstElement);
          addListener(div, 'click', responsible.mobile);
@@ -257,23 +249,22 @@ By default the script looks for a file named responsive.css but you can override
 
       _mobileAddToggle = function(){
         var toggle = document.getElementById('responsible-mobile-toggle');
-        if(toggle) { return false; }
+        if(toggle || !Options.mobileToggleDisplay) { return false; }
 
          var firstElement = document.body.children[0],
          div = document.createElement("div");
          div.id = "responsible-mobile-toggle";
          div.style.position = "fixed";
-         div.style.width = "127px";
          div.style.padding = "10px";
          div.style.color = "#eaeaea";
          div.style.fontSize = "14px";
          div.style.fontWeight = "bold";
          div.style.backgroundColor = "#444";
          div.style.textAlign = "center";
-         div.style.right = "0px";
-         div.style.bottom = "0px";
+         div.style[Options.mobileToggleAlign] = "0px";
+         div.style.bottom = Options.mobileToggleBottom;
          div.style.zIndex = "99999999";
-         div.innerText = "View FullSite";
+         div.innerText = Options.mobileToggleText;
          // insert at top of page
          document.body.insertBefore(div, firstElement);
          addListener(div, 'click', responsible.desktop);
@@ -296,18 +287,15 @@ By default the script looks for a file named responsive.css but you can override
         Options = extend(Defaults, Settings);
 
         console.log('merged options', Options);
-        if(_getWidth() < Options.targetWidth){
+        if(_getWidth() < Options.toggleThreshold){
           // Mobile view
           State = "mobile";
-          console.log(Options);
-
-          console.log(Options.targetWidth);
-          console.log('smaller');
           _mobileAddToggle();
+
         } else {
-          // Desktop view
+          // Desktop view, do nothing
           State = "desktop";
-          console.log('Screen not small enough to trigger');
+
         }
     };
     /**
@@ -318,7 +306,7 @@ By default the script looks for a file named responsive.css but you can override
      * ```js
      * responsible.desktop(); // toggles desktop view
      * // pass in arguments
-     * responsible.desktop({'targetWidth': 1170 });
+     * responsible.desktop({'desktopWidth': 1170 });
      * ```
      */
     responsible.desktop = function() {
@@ -326,9 +314,9 @@ By default the script looks for a file named responsive.css but you can override
 
         State = "desktop"; // set state
 
-        _removeCSS( Options.path );
+        _removeCSS( Options.cssPath );
         viewport.setAttribute("content",
-            'width=' + Options.targetWidth + ", user-scalable=yes, initial-scale=.25, maximum-scale=.35");
+            'width=' + Options.desktopWidth + ", user-scalable=yes, initial-scale=.25, maximum-scale=.35");
 
         _mobileRemoveToggle();
         _desktopAddToggle();
@@ -336,11 +324,11 @@ By default the script looks for a file named responsive.css but you can override
         setTimeout(function() {
           // make it zoomable
           viewport.setAttribute("content",
-              'width=' + Options.targetWidth + ", user-scalable=yes, initial-scale=.25, maximum-scale=1");
+              'width=' + Options.desktopWidth + ", user-scalable=yes, initial-scale=.25, maximum-scale=1");
 
         }, 300);
         //viewportWidth = _getWidth(); // Desktop fix
-        //var width = (viewportWidth > Options.targetWidth) ? viewportWidth : Options.targetWidth;
+        //var width = (viewportWidth > Options.desktopWidth) ? viewportWidth : Options.desktopWidth;
         //document.body.style.width = width + "px";
     };
     /**
@@ -351,7 +339,7 @@ By default the script looks for a file named responsive.css but you can override
      * ```js
      * responsible.mobile(); // toggles desktop view
      * // pass in arguments
-     * responsible.mobile({'targetWidth': 1170 });
+     * responsible.mobile({'desktopWidth': 1170 });
      * ```
      */
     responsible.mobile = function() {
@@ -359,15 +347,15 @@ By default the script looks for a file named responsive.css but you can override
 
       State = "mobile"; // set state
 
-      console.log('cached pathhere ', cache);
+      console.log('cached cssPathhere ', cache);
       console.log('customizations', Options);
         // Load responsive CSS
 
-        console.log("add responsive CSS", Options.path);
-        var path = (cache) ? cache : Options.path;
-        console.log('DO this', path);
+        console.log("add responsive CSS", Options.cssPath);
+        var cssPath = (cache) ? cache : Options.cssPath;
+        console.log('DO this', cssPath);
 
-        _loadCSS( path );
+        _loadCSS( cssPath );
 
         _desktopRemoveToggle();
         _mobileAddToggle();

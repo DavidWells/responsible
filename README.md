@@ -1,97 +1,62 @@
-
-
-<!-- Start src/responsible.js -->
-
-# Responsive CSS done Right
+# Responsible JS - Responsive Websites done right
 
 Give mobile visitors the option of viewing the desktop version of the site with no page reloads or bullshit.
 
 * Help improve the user experience on the web **
 
+### [Live Demo](http://davidwells.tv/code/responsible/)
+
 ## Prerequisites
 
 In order to use the library you need to separate out your responsive CSS into a separate file.
 
-So any media Queries targeting mobile devices (or tablets) should be moved to a new css file.
+This means any media Queries targeting mobile devices (or tablets) should be moved to a new css file. See /demo/css for an example of `old-combined-styles.css` split up into `styles.css` and `responsive.css`.
 
 By default the script looks for a file named responsive.css but you can override this with options
 
-mergeOptions = function(arguments) {
-        ops = {};
-        switch (typeof arguments[0]) {
-            // no custom settings defined, return empty
-            case 'undefined':
-              return Defaults;
-              break;
-            // Ex: responsible.mobile("/css/responsive.css", 1200 );
-            case 'string':
-              ops.path = arguments[0];
-              ops.deviceWidth  = arguments[1] || Defaults.deviceWidth;
-              if (typeof (arguments[(arguments.length - 1)]) === 'function') {
-                // if last arg a function, assign to callback
-                ops.doneFunction  = arguments[(arguments.length - 1)] || null;
-              }
-              return ops;
-              break;
 
-            // Ex: responsible.mobile({path:"/css/responsive.css", deviceWidth: 1200 });
-            case 'object':
-              if (arguments[0].path === undefined) {
-                _logStr('Missing "path" argument!');
-                return false;
-              }
+## Usage:
 
-              ops.path = _argsOrDefault(arguments[0], 'path');
-              ops.targetWidth = _argsOrDefault(arguments[0], 'targetWidth');
-
-              // Function to call when clicking on cancel/OK
-              ops.doneFunction = arguments[1] || null;
-              return ops;
-              break;
-
-            default:
-              _logStr('Unexpected type of arg! Expected "string" or "object", got ' + typeof arguments[0]);
-              return ops;
-
-          }
-    };
-
-// Merge script defaults with user options
-    extend = function(a, b){
-      //console.log('Extend');
-        for (var key in b) {
-          //console.log(key)
-          if (b.hasOwnProperty(key)) {
-            a[key] = b[key];
-          }
-        }
-
-        return a;
-    };
-
-## desktop()
-
-Triggers desktop mode
-
-Usage:
+Include the script on your page and initialize:
 
 ```js
-responsible.desktop(); // toggles desktop view
-// pass in arguments
-responsible.desktop({'targetWidth': 1170 });
+// launches script with default settings
+responsible.init(cssPath: 'http://yoursite.com/css/responsive.css');
+// make sure to set your correct path to the isolated responsive CSS
 ```
 
-## mobile()
-
-Triggers mobile mode
-
-Usage:
+By default, the script inject the responsive toggles into the dom for you. You can override that by passing in different settings:
 
 ```js
-responsible.mobile(); // toggles desktop view
-// pass in arguments
-responsible.mobile({'targetWidth': 1170 });
+// launches script with custom settings
+responsible.init({
+      cssPath: 'responsive.css', // path to responsive css file containing media queries
+      desktopWidth: 1280, // the desired width of the mobile desktop view
+      toggleThreshold: 980, // if the window is smaller than this width, the mobile toggle will display
+      desktopToggleDisplay: true, // set to false to hide mobile toggle
+      desktopToggleText: "Toggle Mobile Site",
+      mobileToggleDisplay: true, // set to false to hide mobile toggle
+      mobileToggleText: "View Full Site",
+      mobileToggleAlign: 'right', // right or left
+      mobileToggleBottom: '0px' // offset from bottom
+    });
+```
+If you want to turn off the built in toggles, you can set both ToggleDisplay settings to false and trigger the desktop or mobile mode manually with custom events
+
+```js
+responsible.init({
+      desktopToggleDisplay: false,
+      mobileToggleDisplay: false,
+});
+```
+```html
+<!-- Toggle Desktop from custom button click -->
+<button onClick="script:responsible.desktop();">Toggle Desktop</button>
+<!-- Toggle Mobile from custom button click -->
+<button onClick="script:responsible.mobile();">Toggle Mobile View</button>
 ```
 
-<!-- End src/responsible.js -->
+## Inspired By:
+
+Github has a pretty solid mobile experience for users but when switching from mobile to desktop it requires a full page reload, this library sidesteps that and creates a seamless experience for mobile browsing
 
