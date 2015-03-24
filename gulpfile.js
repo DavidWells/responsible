@@ -7,6 +7,7 @@ var gulp    = require('gulp'),
     plumber = require('gulp-plumber'),
     clean   = require('gulp-clean'),
     rename  = require('gulp-rename'),
+    markdox = require("gulp-markdox"),
     package = require('./package.json');
 
 var paths = {
@@ -28,6 +29,16 @@ var banner = [
   ' */',
   '\n'
 ].join('');
+
+gulp.task("readme", function() {
+    gulp.src("src/*.js")
+        .pipe(markdox())
+        .pipe(rename({
+            basename: 'README',
+            extname: ".md"
+        }))
+        .pipe(gulp.dest("./"));
+});
 
 gulp.task('scripts', ['clean'], function() {
   return gulp.src(paths.scripts)
@@ -71,5 +82,6 @@ gulp.task('default', [
   'lint',
   'clean',
   'scripts',
+  'readme'
   //'test'
 ]);
