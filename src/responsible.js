@@ -190,19 +190,24 @@
 
         }
     };
+    noOp = function(){
+
+    };
 
     var responsible = {},
         viewport = _getViewPort(), // returns cached viewport tag
         Defaults = {
             cssPath: 'css/responsive.css', // path to responsive css file containing media queries
             desktopWidth: 1280, // the desired width of the mobile desktop view
-            toggleThreshold: 980, // if the window is smaller than this width, the mobile toggle will display
+            toggleThreshold: 980, // if the window is smaller than width, the mobile toggle will display
             desktopToggleDisplay: true, // set to false to hide mobile toggle
             desktopToggleText: "Toggle Mobile Site",
+            desktopCallback: noOp, // trigger callback after desktop view toggled
             mobileToggleDisplay: true, // set to false to hide mobile toggle
             mobileToggleText: "View Full Site",
             mobileToggleAlign: 'right', // right or left
-            mobileToggleBottom: '0px' // offset from bottom
+            mobileToggleBottom: '0px', // offset from bottom
+            mobileCallback: noOp  // trigger callback after mobile view toggled
         },
         State, // Current State of view. "mobile" or "desktop"
         cache;
@@ -315,7 +320,10 @@
             // make it zoomable
             viewport.setAttribute("content",
                 'width=' + Options.desktopWidth + ", user-scalable=yes, initial-scale=.25, maximum-scale=1");
-
+            // run desktop callback
+            if (Options.desktopCallback && typeof (Options.desktopCallback) === 'function') {
+                Options.desktopCallback();
+            }
         }, 300);
         //viewportWidth = _getWidth(); // Desktop fix
         //var width = (viewportWidth > Options.desktopWidth) ? viewportWidth : Options.desktopWidth;
@@ -348,14 +356,14 @@
         _mobileAddToggle();
         // Set viewport back to mobile
         viewport.setAttribute('content', 'width=device-width, user-scalable=yes, initial-scale=1');
-
-        if (Options.doneFunction) {
-            console.log('has done');
-            Options.doneFunction();
+        // run mobile callback
+        if (Options.mobileCallback && typeof (Options.mobileCallback) === 'function') {
+            Options.mobileCallback();
         }
     };
 
     return responsible;
 
 });
+
 responsible.init();
