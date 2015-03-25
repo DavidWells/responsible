@@ -10,6 +10,8 @@ Give mobile visitors the option of viewing the desktop version of the site with 
 
 [View Live Demo](http://davidwells.tv/code/responsible/) - emulate a mobile browser with devtools or view on your phone
 
+[Watch the Video](https://www.youtube.com/watch?v=VtSvk8xnmBE)
+
 ## Prerequisites
 
 In order to use the library you need to separate out your responsive CSS into a separate file.
