@@ -6,9 +6,9 @@ Give mobile visitors the option of viewing the desktop version of the site with 
 
 ![Responsible demo](/demo/img/responsible.gif "Give visitors a view preference")
 
-### [Live Demo](http://davidwells.tv/code/responsible/)
+### Live Demo
 
-[View Live Demo](http://davidwells.tv/code/responsible/) - emulate a mobile browser or view on your phone
+[View Live Demo](http://davidwells.tv/code/responsible/) - emulate a mobile browser with devtools or view on your phone
 
 ## Prerequisites
 
