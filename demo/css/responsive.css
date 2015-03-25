@@ -25,6 +25,7 @@ h3:after {
       padding-top: 20px;
       padding-bottom: 20px;
     }
+    .fork-ribbon {display: none;}
 }
 
 @media only screen and (max-width: 549px) {
