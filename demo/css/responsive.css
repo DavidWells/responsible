@@ -26,6 +26,9 @@ h3:after {
       padding-bottom: 20px;
     }
     .fork-ribbon {display: none;}
+    #video {
+           display:none;
+       }
 }
 
 @media only screen and (max-width: 549px) {

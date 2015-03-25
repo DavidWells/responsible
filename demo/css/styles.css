@@ -606,6 +606,13 @@ margin-bottom: 60px;
 .inner {
 	text-align: center;
 }
+#video {
+  margin:auto;
+  width:100%;
+}
+#video iframe {
+  width:100%;
+}
 .q i {
   font-style: normal;
   position: absolute;
