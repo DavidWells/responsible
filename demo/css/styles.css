@@ -116,12 +116,12 @@ h1 {
     display: inline-block;
 }
 blockquote {
-	background: rgb(150, 150, 150);
-	padding: 20px;
-	padding-top: 30px;
-	padding-bottom: 30px;
-	border-radius: 10px;
-	margin-top: -20px;
+  background: rgb(150, 150, 150);
+  padding: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-radius: 10px;
+  margin-top: -20px;
 }
 /**
  * Address styling not present in IE 8/9, Safari 5, and Chrome.
@@ -514,10 +514,10 @@ p, ul {
 
   margin: 0 0 1.5em; }
 p{
-	text-align: center;
+  text-align: center;
 }
 #top a {
-	text-decoration: none;
+  text-decoration: none;
 }
 img {
   max-width: 100%;
@@ -548,7 +548,7 @@ a:hover {
 margin-bottom: 60px;
 }
 .tagline {
-	font-size: 34px;
+  font-size: 34px;
 }
 .buttons {
   text-align: center; }
@@ -600,18 +600,28 @@ margin-bottom: 60px;
   /* Opera 10.50–12.00 */
   transition: all 1s ease-out;
   /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */ }
-
-.q span.on {
-  opacity: 0.8; }
-.inner {
-	text-align: center;
-}
 #video {
   margin:auto;
   width:100%;
 }
-#video iframe {
-  width:100%;
+#video-wrapper {
+  position:relative;
+  padding-bottom: 36.25%;
+  padding-top: 30px;
+  height:450px;
+}
+#video iframe, #video iframe, #video object, #video embed {
+  position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 2%;
+}
+.q span.on {
+  opacity: 0.8; }
+.inner {
+  text-align: center;
 }
 .q i {
   font-style: normal;

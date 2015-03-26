@@ -26,15 +26,16 @@ h3:after {
       padding-bottom: 20px;
     }
     .fork-ribbon {display: none;}
-    #video {
-           display:none;
-       }
+
 }
 
 @media only screen and (max-width: 549px) {
     .wrap {
         padding-left: 20px;
         padding-right: 20px;
+    }
+    #video-wrapper {
+        height: 255px;
     }
 }
 
