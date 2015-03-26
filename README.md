@@ -1,16 +1,16 @@
-# Responsive Websites done right
+# Responsible.js
 
-Give mobile visitors the option of viewing the desktop version of the site with no page reloads or bullshit.
-
-### Improve user experience on the mobile web
-
-![Responsible demo](/demo/img/responsible.gif "Give visitors a view preference")
+Give mobile visitors the option of viewing the desktop or mobile layout. No page reloads, no hassle, just good UX.
 
 ### Live Demo
 
 [View Live Demo](http://davidwells.tv/code/responsible/) - emulate a mobile browser with devtools or view on your phone
 
 [Watch the Video](https://www.youtube.com/watch?v=VtSvk8xnmBE)
+
+### Improve user experience on the mobile web
+
+![Responsible demo](/demo/img/responsible.gif "Give visitors a view preference")
 
 ## Prerequisites
 
