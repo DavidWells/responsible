@@ -1,6 +1,8 @@
 # Responsible.js
 
-Give mobile visitors the option of viewing the desktop or mobile layout. No page reloads, no hassle, just good UX.
+Give mobile visitors the option of viewing the desktop or mobile layout.
+
+No page reloads, no hassle, just good UX.
 
 ### Live Demo
 
