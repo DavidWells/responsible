@@ -12,7 +12,6 @@
     }
 })(this, function() {
 
-
     // Cross-browser event listening
     addListener = function(element, eventName, listener) {
         if (!element) {
@@ -27,6 +26,7 @@
             element['on' + eventName] = listener;
         }
     };
+
     removeListener = function(element, eventName, listener) {
         if (!element) {
             return;
@@ -40,11 +40,13 @@
             element["on" + eventName] = null;
         }
     };
+
     _logStr = function(string) {
         if (window.console) { // IE...
             window.console.log("Responsible: " + string);
         }
     };
+
     _argsOrDefault = function(args, key) {
         if (typeof args[key] !== 'undefined') {
             return args[key];
@@ -52,46 +54,6 @@
             return Defaults[key];
         }
     };
-    /*!
-    mergeOptions = function(arguments) {
-        ops = {};
-        switch (typeof arguments[0]) {
-            // no custom settings defined, return empty
-            case 'undefined':
-              return Defaults;
-              break;
-            // Ex: responsible.mobile("/css/responsive.css", 1200 );
-            case 'string':
-              ops.path = arguments[0];
-              ops.deviceWidth  = arguments[1] || Defaults.deviceWidth;
-              if (typeof (arguments[(arguments.length - 1)]) === 'function') {
-                // if last arg a function, assign to callback
-                ops.doneFunction  = arguments[(arguments.length - 1)] || null;
-              }
-              return ops;
-              break;
-
-            // Ex: responsible.mobile({path:"/css/responsive.css", deviceWidth: 1200 });
-            case 'object':
-              if (arguments[0].path === undefined) {
-                _logStr('Missing "path" argument!');
-                return false;
-              }
-
-              ops.path = _argsOrDefault(arguments[0], 'path');
-              ops.desktopWidth = _argsOrDefault(arguments[0], 'desktopWidth');
-
-              // Function to call when clicking on cancel/OK
-              ops.doneFunction = arguments[1] || null;
-              return ops;
-              break;
-
-            default:
-              _logStr('Unexpected type of arg! Expected "string" or "object", got ' + typeof arguments[0]);
-              return ops;
-
-          }
-    };*/
 
     extend = function(defaults, options) {
         var extended = {};
@@ -190,9 +152,7 @@
 
         }
     };
-    noOp = function(){
-
-    };
+    noOp = function(){};
 
     var responsible = {},
         viewport = _getViewPort(), // returns cached viewport tag
@@ -283,11 +243,10 @@
 
     responsible.init = function(Settings) {
         // Handle settings here
-        var Settings = Settings || {};
+        Settings = Settings || {};
         // Set global Options
         Options = extend(Defaults, Settings);
 
-        //console.log('merged options', Options);
         if (_getWidth() < Options.toggleThreshold) {
             // Mobile view
             State = "mobile";
@@ -325,9 +284,7 @@
                 Options.desktopCallback();
             }
         }, 300);
-        //viewportWidth = _getWidth(); // Desktop fix
-        //var width = (viewportWidth > Options.desktopWidth) ? viewportWidth : Options.desktopWidth;
-        //document.body.style.width = width + "px";
+
     };
 
     responsible.mobile = function() {
@@ -339,17 +296,14 @@
             _logStr('You are on a desktop. Resize your browser');
             return false;
         }
-
-        State = "mobile"; // set state
-
-        console.log('cached cssPathhere ', cache);
-        console.log('customizations', Options);
-        // Load responsive CSS
-
-        console.log("add responsive CSS", Options.cssPath);
+        // set state
+        State = "mobile";
         var cssPath = (cache) ? cache : Options.cssPath;
-        console.log('DO this', cssPath);
 
+        //console.log('cached cssPathhere ', cache);
+        //console.log('customizations', Options);
+
+        // Load responsive CSS
         _loadCSS(cssPath);
 
         _desktopRemoveToggle();
@@ -365,5 +319,6 @@
     return responsible;
 
 });
-
-//responsible.init(); // run this on your page
+/* run this on your page
+responsible.init();
+*/

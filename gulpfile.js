@@ -75,7 +75,6 @@ gulp.task('clean', function () {
     .pipe(clean());
 });
 
-
 gulp.task('test', function() {
   return gulp.src(paths.scripts.concat(paths.test))
     .pipe(plumber())
@@ -87,6 +86,7 @@ gulp.task('default', [
   'lint',
   'clean',
   'scripts',
+  'test'
   //'readme'
-  //'test'
+
 ]);
