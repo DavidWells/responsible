@@ -1,12 +1,21 @@
 {
   "name": "responsible.js",
-  "version": "1.2.0",
-  "description": "Responsible Responsive",
+  "version": "1.0.0",
+  "description": "Responsible Responsive Design - Give mobile visitors the option of viewing the desktop or mobile layout",
   "author": "@davidwells",
   "license": "MIT",
   "homepage": "https://github.com/davidwells/responsible",
+  "keywords": [
+    "responsive",
+    "css",
+    "mobile",
+    "user-experience",
+    "ux",
+    "toggle",
+    "javascript"
+  ],
   "devDependencies": {
-    "gulp": "~3.7.0",
+    "gulp": "~3.8.8",
     "gulp-clean": "^0.2.4",
     "gulp-header": "^1.0.2",
     "gulp-jshint": "^1.6.1",
@@ -17,6 +26,7 @@
     "gulp-uglify": "~0.3.0",
     "jshint-stylish": "^0.2.0",
     "karma": "^0.12.16",
+    "karma-chrome-launcher": "^0.1.7",
     "karma-jasmine": "~0.2.0",
     "karma-phantomjs-launcher": "^0.1.4",
     "karma-spec-reporter": "0.0.13"
